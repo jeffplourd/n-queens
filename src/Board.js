@@ -79,11 +79,20 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
+      // set counter of pieces by row
+        // loop through row indexes
+          // add 1 when encounters a piece
+      // return true if counter >= 2 else false
       return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+      // set output to false
+      // loop through a colomn indexes
+        // call hasRowConflictAt on these indexes
+        // set output to true if the called function returns true
+      //return output 
       return false; // fixme
     },
 
@@ -94,11 +103,20 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
+      // set counter of pieces by column
+        // loop through colum indexes
+          // add 1 when encounters a piece
+      // return true if counter >= 2 else false
       return false; // fixme
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      // set output to false
+      // loop through a row indexes
+        // call hasColConflictAt on these indexes
+        // set output to true if the called function returns true
+      //return output 
       return false; // fixme
     },
 
@@ -108,12 +126,30 @@
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
-    hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+    hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) { // consider edge case when idx < 0 or > row length
+      // set res to false;
+      // assign majorDiagonalColumnIndexAtFirstRow to var idx
+      // assign col len - idx to var rest
+      // assign idx right to idx and idx left to idx
+
+      // loop through rest
+        // on next row
+        // reassign: idxleft-- reassign indexright++
+        // if idxleft or idxright has a piece 
+          //return true
+
+      // return false
       return false; // fixme
     },
 
     // test if any major diagonals on this board contain conflicts
-    hasAnyMajorDiagonalConflicts: function() {
+    hasAnyMajorDiagonalConflicts: function() { // other option is to use reduce  _.reduce = _.foldl = _.inject = function(obj, iterator, memo, context) {
+      // assign false to output
+      // loop through row indexes
+        // call hasMajorDiagonalConflictAt at these indexes
+        // if this above function returns true
+          //change output to true
+      // return output
       return false; // fixme
     },
 
@@ -123,12 +159,23 @@
     // --------------------------------------------------------------
     //
     // test if a specific minor diagonal on this board contains a conflict
-    hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
+    hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) { 
+    // other option is to use reduce from right to left
+    // _.reduceRight = _.foldr = function(obj, iterator, memo, context) {
+    // the collection is 
+      // iterator takes two args(current and new) if new is true assign true to current
+
       return false; // fixme
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
+      // assign false to output
+      // loop through row indexes
+        // call hasMinorDiagonalConflictAt at these indexes
+        // if this above function returns true
+          //change output to true
+      // return output
       return false; // fixme
     }
 
