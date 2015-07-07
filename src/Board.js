@@ -1,3 +1,4 @@
+
 // This file is a Backbone Model (don't worry about what that means)
 // It's part of the Board Visualizer
 // The only portions you need to work on are the helper functions (below)
@@ -80,20 +81,31 @@
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
       // set counter of pieces by row
+      var counter = 0;
+      var row = this.rows()[rowIndex];
         // loop through row indexes
+        for (var i = 0; i < row.length; i++) {
           // add 1 when encounters a piece
+          if(row[i] === 1) {
+            counter++;
+          }
+        };
       // return true if counter >= 2 else false
-      return false; // fixme
+      return counter >= 2;
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      // set output to false
+      var len = this.rows().length;
       // loop through a colomn indexes
+      for (var i = 0; i < len; i++) {
         // call hasRowConflictAt on these indexes
-        // set output to true if the called function returns true
+        if(this.hasRowConflictAt(i)) {
+          return true;
+        }
+      }
       //return output 
-      return false; // fixme
+      return false;
     },
 
 
@@ -104,20 +116,31 @@
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
       // set counter of pieces by column
-        // loop through colum indexes
+      var counter = 0;
+      var row = this.rows();
+      // loop through colum indexes
+      for(var i = 0; i < row.length; i++) {
+        if(row[i][colIndex] === 1) {
           // add 1 when encounters a piece
+          counter++;
+        };
+      }
       // return true if counter >= 2 else false
-      return false; // fixme
+      return counter >= 2; // fixme
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      // set output to false
+      var len = this.rows().length;
       // loop through a row indexes
+      for(var i = 0; i < len; i++) {
         // call hasColConflictAt on these indexes
-        // set output to true if the called function returns true
+        if(this.hasColConflictAt(i)) {
+          return true;
+        }
+      }
       //return output 
-      return false; // fixme
+      return false;
     },
 
 
@@ -127,30 +150,44 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) { // consider edge case when idx < 0 or > row length
-      // set res to false;
-      // assign majorDiagonalColumnIndexAtFirstRow to var idx
-      // assign col len - idx to var rest
-      // assign idx right to idx and idx left to idx
+      var counter = 0;
+      var rows = this.rows();
+      var col = majorDiagonalColumnIndexAtFirstRow;
+      var row = 0;
+      var stop = col + rows.length;
 
-      // loop through rest
-        // on next row
-        // reassign: idxleft-- reassign indexright++
-        // if idxleft or idxright has a piece 
-          //return true
+      while(col < stop) {
+        if(rows[row][col] === 1) {
+          counter++;
+          //if counter is greater than 2, return true
+          if(counter>=2) {
+            return true;
+          }
+        }
+        col++;
+        row++;
+      }
 
-      // return false
-      return false; // fixme
+      return false;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() { // other option is to use reduce  _.reduce = _.foldl = _.inject = function(obj, iterator, memo, context) {
       // assign false to output
+      var len = this.rows().length;
+      var start = (len - 2) * -1;
+      var stop = len - 1;
+      var i = start;
       // loop through row indexes
+      for (i; i < stop; i++) {
         // call hasMajorDiagonalConflictAt at these indexes
+        if (this.hasMajorDiagonalConflictAt(i)) {
         // if this above function returns true
-          //change output to true
+          return true;
+        }
+      }   
       // return output
-      return false; // fixme
+      return false;
     },
 
 
@@ -159,24 +196,40 @@
     // --------------------------------------------------------------
     //
     // test if a specific minor diagonal on this board contains a conflict
-    hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) { 
-    // other option is to use reduce from right to left
-    // _.reduceRight = _.foldr = function(obj, iterator, memo, context) {
-    // the collection is 
-      // iterator takes two args(current and new) if new is true assign true to current
+    hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
+      var counter = 0;
+      var rows = this.rows();
+      var col = minorDiagonalColumnIndexAtFirstRow;
+      var row = 0;
+      var stop = col - rows.length; 
 
-      return false; // fixme
+      while(col > stop) {
+        if(rows[row][col] === 1) {
+          counter++;
+          //if counter is greater than 2, return true
+          if(counter>=2) {
+            return true;
+          }
+        }
+        col--;
+        row++;
+      }
+
+      return false;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      // assign false to output
-      // loop through row indexes
-        // call hasMinorDiagonalConflictAt at these indexes
-        // if this above function returns true
-          //change output to true
-      // return output
-      return false; // fixme
+      var len = this.rows().length;
+      var stop = len + 2;
+      //start at 1
+      for(var i = 1; i < stop; i++) {
+        if(this.hasMinorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
+
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
